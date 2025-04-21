@@ -1,0 +1,22 @@
+# Deny access to PHP files in the uploads directory
+<FilesMatch "\.php$">
+  Order Allow,Deny
+  Deny from all
+</FilesMatch>
+
+# Allow access to image files
+<FilesMatch "\.(jpg|jpeg|png|gif|svg)$">
+  Order Deny,Allow
+  Allow from all
+</FilesMatch>
+
+# Prevent directory listing
+Options -Indexes
+
+# Set appropriate headers for images
+<IfModule mod_headers.c>
+  <FilesMatch "\.(jpg|jpeg|png|gif|svg)$">
+    Header set X-Content-Type-Options "nosniff"
+    Header set Content-Disposition "inline"
+  </FilesMatch>
+</IfModule> 
